@@ -1,2 +1,3 @@
-# mocha_code
-Code Repo for MOCHa: Multi-Objective Reinforcement Mitigating Caption Hallucinations
+# MOCHa: Multi-Objective Reinforcement Mitigating Caption Hallucinations
+
+Code will be released soon
