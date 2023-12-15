@@ -1,0 +1,4 @@
+.conda/*
+.vscode/*
+__pycache__/*
+wandb/*
