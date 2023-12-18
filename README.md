@@ -16,7 +16,7 @@ We introduce <b><u>MOCHa</u></b>, a reinforcement learning-based approach that a
 
 <img src="images/mocha_teaser.png" width="90%"/>  
 
-Additionally, existing hallucination metrics tend to measure only a fraction of all possible hallucinations due to their closed-vocabulary design.<br>
+Additionally, existing hallucination metrics measure only a fraction of all possible hallucinations due to their closed-vocabulary design.<br>
 We introduce <b><u>OpenCHAIR</u></b>, a benchmark for evaluating open-vocabulary hallucinations in captioning models:
 
 <img src="images/openchair_teaser.png" width="90%"/>  
@@ -63,12 +63,15 @@ Additional configurations:
 
 Check out ```vlm_rlhf_config.json``` for more configurations.
 
+## Final Model Weights
+Will publish in the near future.
+
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 Will add support in the near future.
 
-
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
+* If CUDA is running out of memory, try reducing the batch size (```num_of_images_per_batch``` or ```num_of_samples_per_image``` or both).
 * To track the learning progress, keep an eye on the generated captions of the verification images (wandb -> Tables ->  runs.summary["validation_data"])
 * Additionally, it is helpful to look after validation_reward_mean and kl_dist (wandb -> Charts). The kl_dist should not be too large (in BLIP-Large, empirically, no more than 5). In parallel, we want to see validation_reward_mean increase under the small kl_dist constraint. kl_dist is controlled by beta (decreases when we increase beta).
 
