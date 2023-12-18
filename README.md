@@ -16,7 +16,7 @@ We introduce <b><u>MOCHa</u></b>, a reinforcement learning-based approach that a
 
 <img src="images/mocha_teaser.png" width="90%"/>  
 
-Additionally, existing hallucination metrics tend to measure only a fraction of all possible hallucinations due to their closed-vocabulary design.<br>
+Additionally, existing hallucination metrics measure only a fraction of all possible hallucinations due to their closed-vocabulary design.<br>
 We introduce <b><u>OpenCHAIR</u></b>, a benchmark for evaluating open-vocabulary hallucinations in captioning models:
 
 <img src="images/openchair_teaser.png" width="90%"/>  
