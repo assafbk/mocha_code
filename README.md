@@ -45,22 +45,22 @@ python vlm_rlhf.py
 ```
 
 The configuration file is ```vlm_rlhf_config.json```. Important configurations:
-* ```reward_model_weights:``` List of weights for all rewards. First is the NLI weight and the second is the BERTScore weight (equivalent to alpha and 1-alpha in the paper). This field tunes the pareto frontier of the fidelity-adequacy curve. Initialized to [0.5,0.5].
-* ```beta:``` The weight for the kl-penalty reward. Initialized to 0.06.
-* ```num_of_images_per_batch:``` Number of images per PPO batch. Initialized to 10.
-* ```num_of_samples_per_image:``` Number of captions to generate per image. Initialized to 10. <br>In a single batch there are <num_of_images_per_batch> x <num_of_samples_per_image> captions.
-* ```model_device, ref_model_device, reward_model_device:``` Cuda device for each model.
+* ```reward_model_weights```: List of weights for all rewards. First is the NLI weight and the second is the BERTScore weight (equivalent to alpha and 1-alpha in the paper). This field tunes the pareto frontier of the fidelity-adequacy curve. Initialized to [0.5,0.5].
+* ```beta```: The weight for the kl-penalty reward. Initialized to 0.06.
+* ```num_of_images_per_batch```: Number of images per PPO batch. Initialized to 10.
+* ```num_of_samples_per_image```: Number of captions to generate per image. Initialized to 10. <br>In a single batch there are <num_of_images_per_batch> x <num_of_samples_per_image> captions.
+* ```model_device```, ```ref_model_device```, ```reward_model_device```: Cuda device for each model.
 
 All training metrics, including caption samples (for train and verification images) are displayed in the wandb webpage.
 
 Additional configurations:
-* ```output_dir:``` Where to save model checkpoints. Initialized to <project_dir>/output.
-* ```cache_dir:``` Huggingface cache dir for all models. Initialized to <project_dir>/hf_cache.
-* ```activate_logging:``` Enables wandb logging. Initialized to True.
-* ```sampling_temperature:``` Sampling temperature for the model. Initialized to 1.2.   
-* ```save_steps:``` Model saving interval. Initialized to 200 (Note: best model is always saved regardless of this value).
-* ```eval_steps:``` Model evaluation interval. Initialized to 10.
-* ```max_step:``` Maximal amount of training steps. Initialized to 3000.
+* ```output_dir```: Where to save model checkpoints. Initialized to <project_dir>/output.
+* ```cache_dir```: Huggingface cache dir for all models. Initialized to <project_dir>/hf_cache.
+* ```activate_logging```: Enables wandb logging. Initialized to True.
+* ```sampling_temperature```: Sampling temperature for the model. Initialized to 1.2.   
+* ```save_steps```: Model saving interval. Initialized to 200 (Note: best model is always saved regardless of this value).
+* ```eval_steps```: Model evaluation interval. Initialized to 10.
+* ```max_step```: Maximal amount of training steps. Initialized to 3000.
 
 Check out ```vlm_rlhf_config.json``` for more configurations.
 
