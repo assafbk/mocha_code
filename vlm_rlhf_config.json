@@ -1,14 +1,31 @@
 {
+    "_comment": "the effective batch size will be: <num of images> x <num of generated captions per image>",
+    "num_of_images_per_batch": 10,
+    "num_of_samples_per_image": 10,
+    
+    "reward_model_list": ["bart_nli","bertscore"],
+    "reward_model_weights": [0.5,0.5],
+    "reward_model_type": "am",
+    "num_ref": 5,
+    "model_device": "cuda:0",
+    "ref_model_device": "cuda:1",
+    "reward_model_device": "cuda:1",
+    
+    "beta": 0.06,
+    "ppo_iters": 4,
+    "epsilon": 0.2,
+    "lr": 1e-6,
+    
     "activate_logging": true,
-    "cache_dir": "/data/assaf/vlm_rlhf/hf_cache",
-    "output_dir": "/data/assaf/vlm_rlhf/outputs/models/image-captioning-rlhf/weighting_exp/",
+    "cache_dir": "./hf_cache",
+    "output_dir": "./output",
     
     "dataset" : "coco",
-    "data_loading_type": "local",
+    "data_loading_type": "url",
     "_comment": "if data_loading_type==local, fill in the fields below",
-    "coco_annotations_train": "/data/assaf/vlm_rlhf/coco-karpathy/data/train-00000-of-00001.parquet",
-    "coco_annotations_val": "/data/assaf/vlm_rlhf/coco-karpathy/data/validation-00000-of-00001.parquet",
-    "path_to_coco_images": "/data/assaf/vlm_rlhf/coco-2014/images/",
+    "coco_annotations_train": "./coco-karpathy/data/train-00000-of-00001.parquet",
+    "coco_annotations_val": "./coco-karpathy/data/validation-00000-of-00001.parquet",
+    "path_to_coco_images": "./coco-2014/images/",
     
     "model_type": "blip",
     "freeze_vision_encoder": true,
@@ -18,23 +35,6 @@
     "seed" : 123,
     "save_steps" : 200,
     "eval_steps" : 10,
-    "max_step" : 3000,
-
-    "model_device": "cuda:0",
-    "ref_model_device": "cuda:1",
-    "reward_model_device": "cuda:1",
-    "reward_model_list": ["bart_nli","bertscore"],
-    "reward_model_weights": [0.5,0.5],
-    "reward_model_type": "am",
-    "num_ref": 5,
-     
-    "_comment": "the effective batch size will be: <num of images> x <num of generated captions per image>",
-    "num_of_images_per_batch": 3,
-    "num_of_samples_per_image": 8,
-    
-    "lr": 1e-6,
-    "beta": 0.06,
-    "ppo_iters": 4,
-    "epsilon": 0.2
+    "max_step" : 3000
 
 }   

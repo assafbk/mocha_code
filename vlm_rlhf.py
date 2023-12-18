@@ -1,6 +1,5 @@
 import torch
 from torch.utils.data import DataLoader
-from torch.nn import CrossEntropyLoss, KLDivLoss
 import torch.nn.functional as F
 from PIL import Image
 import os
