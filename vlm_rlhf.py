@@ -10,11 +10,8 @@ import numpy as np
 import pandas as pd
 import wandb
 from tqdm import tqdm
-
-
 from datasets import load_dataset
 from datasets.utils.file_utils import get_datasets_user_agent
-
 from torch.utils.data import Dataset
 
 import vlm_sampler as vlm_sampler_module
@@ -31,7 +28,7 @@ def save_model(config, config_file, model, model_processor, step, start_time, be
         ckpt = os.path.join(output_dir, f'step_{step}')
     model.save_pretrained(ckpt)
     model_processor.save_pretrained(ckpt)
-    shutil.copy(config_file, os.path.join(config['output_dir'],ckpt,'vlm_rlhf_config.json'))
+    shutil.copy(config_file, os.path.join(ckpt,'vlm_rlhf_config.json'))
 
 def set_ref_model_to_inference_mode(ref_model):
     for param in ref_model.parameters():
