@@ -34,10 +34,9 @@ To set up our environment, please run:
 ```
 conda env create -f environment.yml
 ```
-<br>
 
 # Fine-Tune A Vision-Language Model With The MOCHa Framework
-We currently support BLIP-Large on the MS-COCO Dataset (will add support to other models and datasets in the near future).
+We currently support BLIP-Large on the MS-COCO Dataset (will add support for other models and datasets in the near future).
 
 To run the training script:
 ```
@@ -71,7 +70,7 @@ Will add support in the near future.
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
 * To track the learning progress, keep an eye on the generated captions of the verification images (wandb -> Tables ->  runs.summary["validation_data"])
-* Other important signals are validation_reward_mean and kl_dist (wandb -> Charts). The kl_dist should not be too large (in BLIP-Large, empirically, no more than 5). In parallel, we want to see validation_reward_mean increase under the small kl_dist constraint. kl_dist is controlled by beta (decreases when we increase beta).
+* Additionally, it is helpful to look after validation_reward_mean and kl_dist (wandb -> Charts). The kl_dist should not be too large (in BLIP-Large, empirically, no more than 5). In parallel, we want to see validation_reward_mean increase under the small kl_dist constraint. kl_dist is controlled by beta (decreases when we increase beta).
 
 
 ## Citation
