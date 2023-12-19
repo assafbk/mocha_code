@@ -67,6 +67,7 @@ Check out ```vlm_rlhf_config.json``` for more configurations.
 
 | Model type | Checkpoint | 
 |----------|------------|
+|Blip-Base|[moranyanuka/blip-image-captioning-base-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-base-mocha)|
 |Blip-Large|[moranyanuka/blip-image-captioning-large-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-large-mocha)|
 
 
