@@ -64,7 +64,13 @@ Additional configurations:
 Check out ```vlm_rlhf_config.json``` for more configurations.
 
 ## Final Model Weights
-Will publish in the near future.
+
+| Model type | Checkpoint | 
+|----------|------------|
+|Blip-Large|[moranyanuka/blip-image-captioning-large-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-large-mocha)|
+
+
+We will publish the checkpoints of additional models in the near future.
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 Will add support in the near future.
