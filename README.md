@@ -83,7 +83,7 @@ To perform evaluation over the OpenCHAIR benchmark:
 python OpenCHAIR/evaluate_OpenCHAIR.py \
     --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
     --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
-    --concreteness-dataset-patt <path-to-concreteness-dataset> \
+    --concreteness-dataset-path <path-to-concreteness-dataset> \
     --prompt "a photography of "\
     --batch-size 100 \ 
     --beam-size 5 \ 
