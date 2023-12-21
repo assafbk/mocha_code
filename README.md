@@ -33,7 +33,10 @@ cd mocha_code
 To set up our environment, please run:
 ```
 conda env create -f environment.yml
+conda activate mocha
+python -m spacy download en_core_web_sm
 ```
+
 
 # Fine-Tune A Vision-Language Model With The MOCHa Framework
 We currently support BLIP-Large on the MS-COCO Dataset (will add support for other models and datasets in the near future).
