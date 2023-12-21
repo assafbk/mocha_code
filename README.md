@@ -80,7 +80,7 @@ To perform evaluation over the OpenCHAIR benchmark:
 2. Run (for example for MOCHa-Optimized BLIP-Base and LLaMa-70B-chat as the Judge):
 
 ```Shell
-python evaluate_OpenCHAIR.py \
+python OpenCHAIR/evaluate_OpenCHAIR.py \
     --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
     --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
     --concreteness-dataset-patt <path-to-concreteness-dataset> \
