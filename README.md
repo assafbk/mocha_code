@@ -67,14 +67,35 @@ Check out ```vlm_rlhf_config.json``` for more configurations.
 
 | Model type | Checkpoint | 
 |----------|------------|
-|Blip-Base|[moranyanuka/blip-image-captioning-base-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-base-mocha)|
-|Blip-Large|[moranyanuka/blip-image-captioning-large-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-large-mocha)|
+|Blip-Base|[🤗 moranyanuka/blip-image-captioning-base-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-base-mocha)|
+|Blip-Large|[🤗 moranyanuka/blip-image-captioning-large-mocha](https://huggingface.co/moranyanuka/blip-image-captioning-large-mocha)|
 
 
 We will publish the checkpoints of additional models in the near future.
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
-Will add support in the near future.
+To perform evaluation over the OpenCHAIR benchmark:
+1. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness) and place it in OpenCHAIR directory.
+
+2. Run (for example for MOCHa-Optimized BLIP-Base and LLaMa-70B-chat as the Judge):
+
+```Shell
+python evaluate_OpenCHAIR.py \
+    --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
+    --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
+    --concreteness-dataset-patt <path-to-concreteness-dataset> \
+    --prompt "a photography of "\
+    --batch-size 100 \ 
+    --beam-size 5 \ 
+```
+Additional information:
+
+* ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated
+* ```llm-ckpt```: The LLM ckeckpoint used as the judge that determines whether a caption contains an object.
+* ```promp```: The prompt appended for the generation
+* ```batch-size```: The generation batch-size
+
+You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR) (will be downloaded automatically when running the above script)
 
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
