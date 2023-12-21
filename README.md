@@ -86,7 +86,7 @@ python OpenCHAIR/evaluate_OpenCHAIR.py \
     --concreteness-dataset-path <path-to-concreteness-dataset> \
     --prompt "a photography of "\
     --batch-size 100 \ 
-    --beam-size 5 \ 
+    --beam-size 5
 ```
 Additional information:
 
