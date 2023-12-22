@@ -95,7 +95,7 @@ Additional information:
 
 * ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated
 * ```llm-ckpt```: The LLM ckeckpoint used as the judge that determines whether a caption contains an object.
-* ```promp```: The prompt appended for the generation
+* ```prompt```: The prompt appended for the generation
 * ```batch-size```: The generation batch-size
 
 You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR) (will be downloaded automatically when running the above script)
