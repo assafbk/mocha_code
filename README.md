@@ -78,27 +78,42 @@ We will publish the checkpoints of additional models in the near future.
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 To perform evaluation over the OpenCHAIR benchmark:
-1. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness) and place it in OpenCHAIR directory.
+1. Create a csv file with 2 columns:
 
-2. Run (for example for MOCHa-Optimized BLIP-Base and LLaMa-70B-chat as the Judge):
+    `gt_caption` : the OpenCHAIR ground-truth captions 
 
-```Shell
-python OpenCHAIR/evaluate_OpenCHAIR.py \
-    --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
-    --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
-    --concreteness-dataset-path <path-to-concreteness-dataset> \
-    --prompt "a photography of "\
-    --batch-size 100 \ 
-    --beam-size 5
-```
-Additional information:
+    `generated_caption` : the output captions of the model to be evaluated.
 
-* ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated
-* ```llm-ckpt```: The LLM ckeckpoint used as the judge that determines whether a caption contains an object.
-* ```prompt```: The prompt appended for the generation
-* ```batch-size```: The generation batch-size
+    We provide an example script for generating such a file for BLIP-Base with MOCHa optimization, by running:
 
-You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR) (will be downloaded automatically when running the above script)
+    ```Shell
+    python OpenCHAIR/generate_captions.py \
+        --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
+        --prompt "a photography of " \
+        --batch-size 100
+        --num-beams 5
+    ```
+    Additional information:
+
+    * ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated. Note that the script currently only supports BLIP-Base and BLIP-Large based models.
+    * ```prompt```: The prompt appended for the generation
+
+2. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness).
+
+3. Run the evaluation script:
+
+    ```Shell
+    python OpenCHAIR/evaluate.py \
+        --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
+        --concreteness-dataset-path <path-to-concreteness-dataset>
+        --generations-file-path <path-to-generated-captions-file>
+    ```
+
+
+
+
+
+You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR) (will be downloaded automatically when running the caption generation script above).
 
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
