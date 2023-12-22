@@ -113,7 +113,11 @@ To perform evaluation over the OpenCHAIR benchmark:
 
 
 
-You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR) (will be downloaded automatically when running the caption generation script above).
+You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR). It will be downloaded automatically if you run the caption generation script above. It can be loaded by:
+```python
+from datasets import load_dataset
+dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
+```
 
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
