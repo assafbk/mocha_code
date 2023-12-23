@@ -1,6 +1,7 @@
 import pandas as pd
 from tqdm.contrib import tzip
 import argparse
+from datasets import load_dataset
 
 from utils import (
     extract_objs, 
@@ -25,7 +26,10 @@ def get_och_score(responses):
 
 
 def eval(args):
+    print("Loading Dataset\n")
+    och_dataset = load_dataset("moranyanuka/OpenCHAIR", cache_dir=args.cache_dir)['test']
     df = pd.read_csv(args.generations_file_path)
+    df['gt_caption'] = och_dataset['text']
 
     word_conc = pd.read_excel(args.concreteness_dataset_path)[['Word','Conc.M']].set_index("Word").to_dict()['Conc.M']
     print("\nExtracting Generated Object\n")

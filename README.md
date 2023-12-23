@@ -78,13 +78,9 @@ We will publish the checkpoints of additional models in the near future.
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 To perform evaluation over the OpenCHAIR benchmark:
-1. Create a csv file with 2 columns:
+1. Create a csv file with a single column `generated_caption`, which contrains the generated captions of the model to be evaluated.
 
-    `gt_caption` : the OpenCHAIR ground-truth captions 
-
-    `generated_caption` : the output captions of the model to be evaluated.
-
-    We provide an example script for generating such a file for BLIP-Base with MOCHa optimization, by running:
+    We provide an example script for generating such a file for the MOCHa-optimized BLIP-Base model, by running:
 
     ```Shell
     python OpenCHAIR/generate_captions.py \

@@ -37,10 +37,8 @@ def run(args):
     och_dataset = load_dataset("moranyanuka/OpenCHAIR", cache_dir=args.cache_dir)['test']
     print("\nGenerating Captions\n")
     generated_captions = generate(och_dataset, args)
-    och_captions = och_dataset['text']
 
     df = pd.DataFrame()
-    df['gt_caption'] = och_captions
     df['generated_caption'] = generated_captions
     df.to_csv(args.output_dir)
 
