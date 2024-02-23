@@ -77,6 +77,9 @@ Check out ```vlm_rlhf_config.json``` for more configurations.
 We will publish the checkpoints of additional models in the near future.
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
+
+Coming Soon
+<!--
 To perform evaluation over the OpenCHAIR benchmark:
 1. Create a csv file with a single column `generated_caption`, which contains the generated captions of the model to be evaluated.
 
@@ -105,7 +108,7 @@ To perform evaluation over the OpenCHAIR benchmark:
         --generations-file-path <path-to-generated-captions-file>
     ```
 
-
+-->
 
 
 
