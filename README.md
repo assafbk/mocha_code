@@ -128,12 +128,12 @@ dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
 ## Citation
 If you find this useful for your research, please cite the following:
 ```bibtex
-@misc{benkish2023mocha,
-      title={MOCHa: Multi-Objective Reinforcement Mitigating Caption Hallucinations}, 
+@misc{benkish2024mitigating,
+      title={Mitigating Open-Vocabulary Caption Hallucinations}, 
       author={Assaf Ben-Kish and Moran Yanuka and Morris Alper and Raja Giryes and Hadar Averbuch-Elor},
-      year={2023},
+      year={2024},
       eprint={2312.03631},
       archivePrefix={arXiv},
       primaryClass={cs.CV}
-      }
+}
 ```
