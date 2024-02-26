@@ -9,20 +9,26 @@ from utils import (
     get_answer
 )
 
-def get_llm_responses(args, df):
-    llm_pipe = load_llm_pipe(args)
+def get_llm_responses(df, llm_pipe):
+    ignore_words = ['painting', 'drawing', 'photo', 'picture', 'portrait', 'photograph']
     hits = []
     for cap, objs in tzip(df.gt_caption, df.generated_objs):
-        objs = set(objs)
+        cur_hits = []
         for obj in objs:
-            hits.append(get_answer(cap, obj, llm_pipe))
+            if obj in ignore_words:
+                cur_hits.append('ignore')
+            else:
+                cur_hits.append(get_answer(cap, obj, llm_pipe))
+        hits.append(cur_hits)
     return hits
 
-def get_och_score(responses):
+def get_och_score(llm_responses):
+    responses = []
+    [responses.extend(resp_per_cap) for resp_per_cap in llm_responses]
     data = pd.Series(responses).str.lower().str.strip()
     dv = data.value_counts()
     d = dv.to_dict()
-    return 1 - d['yes'] / dv.sum()
+    return d['no'] / (d['yes'] + d['no'])
 
 
 def eval(args):
@@ -35,9 +41,12 @@ def eval(args):
     print("\nExtracting Generated Object\n")
     df['generated_objs'] = extract_objs(df.generated_caption.tolist(), word_conc)
 
+    print("\nLoading LLM\n")
+    llm_pipe = load_llm_pipe(args)
+
     print("\nGetting LLM Responses\n")
-    llm_responces = get_llm_responses(args, df)
-    OpenCHAIR_score = get_och_score(llm_responces)
+    llm_responses = get_llm_responses(df, llm_pipe)
+    OpenCHAIR_score = get_och_score(llm_responses)
     print("\nOpenCHAIR Score: \n")
     print(OpenCHAIR_score)
     

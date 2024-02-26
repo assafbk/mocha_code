@@ -48,19 +48,26 @@ def load_llm_pipe(args):
                     device_map="auto")
     return pipe
 
-def make_prompt(cap, obj):
-    prompt = f"""[INST]
-                 An image has the following caption: "{cap}"
-                 Does the image contain the following object? "{obj}"
-                 Answer yes/no/unsure.
-                 [/INST]
-                 The answer is: "
-                 """.strip()
+def parse_ans(ans):
+    ans_word_list = ans.lower().replace(',','').replace('.','').replace(';','').replace('\n',' ').split(' ')
+    if 'yes' in ans_word_list:
+        return 'yes'
+    elif 'no' in ans_word_list or 'not' in ans_word_list:
+        return 'no'
+    elif 'unsure' in ans_word_list:
+        return 'unsure'
+    else:
+        return 'ERROR: '+';'.join(ans_word_list)
+
+def make_prompt(cap, obj, tokenizer):
+    _prompt = f'''Here are a few descriptions of an image: {cap}.\nDoes the image contain the following object: {obj}?\nAnswer yes/no/unsure.\n The answer is: '''
+    prompt = tokenizer.apply_chat_template([{'role':'user', "content":_prompt}], tokenize=False)
     return prompt
 
 @lru_cache(maxsize=None)
 def get_answer(cap, obj, pipe):
-    prompt = make_prompt(cap, obj)
-    out = pipe(prompt, max_new_tokens=1, do_sample=False, num_return_sequences=1)
+    prompt = make_prompt(cap, obj, pipe.tokenizer)
+    out = pipe(prompt, max_new_tokens=8, do_sample=False, num_return_sequences=1)
     out = out[0]['generated_text'][len(prompt):].strip()
+    out = parse_ans(out)
     return out
