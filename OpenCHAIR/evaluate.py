@@ -82,6 +82,8 @@ if __name__ == "__main__":
     parser.add_argument("--llm-ckpt", type=str, default="meta-llama/Llama-2-70b-chat-hf")
     parser.add_argument("--concreteness-dataset-path", type=str, default="./OpenCHAIR/Concreteness_ratings_Brysbaert_et_al_BRM.xlsx")
     parser.add_argument("--device", type=str, default='cuda')
+    parser.add_argument("--cache-dir", type=str, default=None)
+    parser.add_argument("--generations-file-path", type=str, default="./OpenCHAIR/out.csv")
     parser.add_argument("--batch-size", type=int, default=32)
     args = parser.parse_args()
     eval(args)
