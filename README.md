@@ -43,9 +43,11 @@ python -m spacy download en_core_web_sm
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 
 To perform evaluation over the OpenCHAIR benchmark:
-1. Create a csv file with a single column `generated_caption`, which contains the generated captions of the model to be evaluated.
+1. Create a csv file with a single column titled 'generated_caption'. The following rows should contain the model's captions for OpenCHAIR's images.
+   An example csv file can be found in:<br>
+   ```OpenCHAIR/example_gen_file.csv```
 
-    We provide an example script for generating such a file for the MOCHa-optimized BLIP-Base model, by running:
+   Additionally, we provide a script for generating such a file for the MOCHa-optimized BLIP-Base model, by running:
 
     ```Shell
     python OpenCHAIR/generate_captions.py \
@@ -59,9 +61,9 @@ To perform evaluation over the OpenCHAIR benchmark:
     * ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated. Note that the script currently only supports BLIP-Base and BLIP-Large based models.
     * ```prompt```: The prompt appended for the generation
 
-2. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness).
+3. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness).
 
-3. Run the evaluation script:
+4. Run the evaluation script:
 
     ```Shell
     python OpenCHAIR/evaluate.py \
@@ -69,7 +71,7 @@ To perform evaluation over the OpenCHAIR benchmark:
         --generations-file-path <path-to-generated-captions-file>
     ```
 
-More configuration options can be found in OpenCHAIR/evaluate.py
+More configuration options can be found in ```OpenCHAIR/evaluate.py```
 
 
 The OpenCHAIR dataset can also be accessed from [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR), and can be loaded as follows:
@@ -79,7 +81,7 @@ dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
 ```
 
 ## Tips:
-* selecting high values for ```--batch-size``` can significantly improve the evaluation script's runtime
+* selecting a large ```--batch-size``` can significantly improve the evaluation script's runtime.
 <br>
 
 
