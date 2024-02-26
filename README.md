@@ -66,9 +66,10 @@ To perform evaluation over the OpenCHAIR benchmark:
         --generations-file-path <path-to-generated-captions-file>
     ```
 
-Additional configuration options can be found in OpenCHAIR/evaluate.py
+More configuration options can be found in OpenCHAIR/evaluate.py
 
-The OpenCHAIR dataset can be found [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR). It will be downloaded automatically if you run the caption generation script above. It can be loaded by:
+
+The OpenCHAIR dataset can also be accessed from [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR), and can be loaded as follows:
 ```python
 from datasets import load_dataset
 dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
