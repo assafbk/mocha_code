@@ -11,15 +11,15 @@
 <a href="https://assafbk.github.io/mocha"><img src="https://img.shields.io/static/v1?label=Project&message=Website&color=blue"></a>
 <a href="https://arxiv.org/abs/2312.03631"><img src="https://img.shields.io/badge/arXiv-2311.13608-b31b1b.svg"></a>
 
-Hallucinated details are prevalent in the outputs of modern image captioning models, as exemplified by BLIP below.<br>
-We introduce <b><u>MOCHa</u></b>, a reinforcement learning-based approach that adjusts captioning models to output detailed, valid captions while avoiding such hallucinations.
+Hallucinated details are prevalent in the outputs of modern image captioning models. Prior work has largely focused on detecting or mitigating hallucinations by using closed-vocabulary object lists, which simplify the problem but fail to capture most types of hallucinations that occur in practice. By leveraging recent progress in generative foundation models, we propose a unified framework for quantifying and mitigating open-vocabulary hallucinations. <br>
 
-<img src="images/mocha_teaser.png" width="90%"/>  
-
-Additionally, existing hallucination metrics measure only a fraction of all possible hallucinations due to their closed-vocabulary design.<br>
-We introduce <b><u>OpenCHAIR</u></b>, a benchmark for evaluating open-vocabulary hallucinations in captioning models:
+First, We introduce <b>OpenCHAIR</b>, a benchmark for evaluating open-vocabulary hallucinations which surpasses the existing benchmark CHAIR both in diversity and accuracy:<br>
 
 <img src="images/openchair_teaser.png" width="90%"/>  
+
+Additionally, we introduce <b>MOCHa</b>, a reinforcement learning-based approach that adjusts captioning models to output detailed, valid captions while avoiding such hallucinations:
+
+<img src="images/mocha_teaser.png" width="90%"/>  
 
 </p>
 
@@ -35,6 +35,43 @@ To set up our environment, please run:
 conda env create -f environment.yml
 conda activate mocha
 python -m spacy download en_core_web_sm
+```
+
+# Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
+
+To perform evaluation over the OpenCHAIR benchmark:
+1. Create a csv file with a single column `generated_caption`, which contains the generated captions of the model to be evaluated.
+
+    We provide an example script for generating such a file for the MOCHa-optimized BLIP-Base model, by running:
+
+    ```Shell
+    python OpenCHAIR/generate_captions.py \
+        --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
+        --prompt "a photography of " \
+        --batch-size 100
+        --num-beams 5
+    ```
+    Additional information:
+
+    * ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated. Note that the script currently only supports BLIP-Base and BLIP-Large based models.
+    * ```prompt```: The prompt appended for the generation
+
+2. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness).
+
+3. Run the evaluation script:
+
+    ```Shell
+    python OpenCHAIR/evaluate.py \
+        --concreteness-dataset-path <path-to-concreteness-dataset> \
+        --generations-file-path <path-to-generated-captions-file>
+    ```
+
+Additional configuration options can be found in OpenCHAIR/evaluate.py
+
+The OpenCHAIR dataset can be found [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR). It will be downloaded automatically if you run the caption generation script above. It can be loaded by:
+```python
+from datasets import load_dataset
+dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
 ```
 
 
@@ -76,47 +113,6 @@ Check out ```vlm_rlhf_config.json``` for more configurations.
 
 We will publish the checkpoints of additional models in the near future.
 
-# Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
-
-Coming Soon
-<!--
-To perform evaluation over the OpenCHAIR benchmark:
-1. Create a csv file with a single column `generated_caption`, which contains the generated captions of the model to be evaluated.
-
-    We provide an example script for generating such a file for the MOCHa-optimized BLIP-Base model, by running:
-
-    ```Shell
-    python OpenCHAIR/generate_captions.py \
-        --model-ckpt moranyanuka/blip-image-captioning-base-mocha \
-        --prompt "a photography of " \
-        --batch-size 100
-        --num-beams 5
-    ```
-    Additional information:
-
-    * ```model-ckpt```: The huggingface ckeckpoint of the model to be evaluated. Note that the script currently only supports BLIP-Base and BLIP-Large based models.
-    * ```prompt```: The prompt appended for the generation
-
-2. Download the Concreteness Rating Dataset (xlsx format) from [here](https://github.com/ArtsEngine/concreteness).
-
-3. Run the evaluation script:
-
-    ```Shell
-    python OpenCHAIR/evaluate.py \
-        --llm-ckpt meta-llama/Llama-2-70b-chat-hf \
-        --concreteness-dataset-path <path-to-concreteness-dataset>
-        --generations-file-path <path-to-generated-captions-file>
-    ```
-
--->
-
-
-
-You can find the OpenCHAIR dataset [🤗 Here](https://huggingface.co/datasets/moranyanuka/OpenCHAIR). It will be downloaded automatically if you run the caption generation script above. It can be loaded by:
-```python
-from datasets import load_dataset
-dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
-```
 
 ## Tips:
 * If more than one GPU is available, we recommend setting ```model_device``` to the first GPU, and ```ref_model_device``` and ```reward_model_device``` to the second GPU. (Motivation - the former requires grads hence uses the GPU memory more extensively).
