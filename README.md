@@ -22,20 +22,23 @@ Additionally, we introduce <b>MOCHa</b>, a reinforcement learning-based approach
 <img src="images/mocha_teaser.png" width="90%"/>  
 
 </p>
+<br>
 
 # Setup
+## Clone Project
 ```
 git clone https://github.com/assafbk/mocha_code.git
 cd mocha_code
 ```
 
-## Environment
+## Create Environment
 To set up our environment, please run:
 ```
 conda env create -f environment.yml
 conda activate mocha
 python -m spacy download en_core_web_sm
 ```
+<br>
 
 # Measure Open-Vocabulary Hallucination Rate With The OpenCHAIR Benchmark
 
@@ -74,6 +77,10 @@ The OpenCHAIR dataset can also be accessed from [🤗 Here](https://huggingface.
 from datasets import load_dataset
 dataset = load_dataset("moranyanuka/OpenCHAIR")['test']
 ```
+
+## Tips:
+* selecting high values for ```--batch-size``` can significantly improve the evaluation script's runtime
+<br>
 
 
 # Fine-Tune A Vision-Language Model With The MOCHa Framework
@@ -120,9 +127,9 @@ We will publish the checkpoints of additional models in the near future.
 * If CUDA is running out of memory, try reducing the batch size (```num_of_images_per_batch``` or ```num_of_samples_per_image``` or both).
 * To track the learning progress, keep an eye on the generated captions of the verification images (wandb -> Tables ->  runs.summary["validation_data"])
 * Additionally, it is helpful to look after validation_reward_mean and kl_dist (wandb -> Charts). The kl_dist should not be too large (in BLIP-Large, empirically, no more than 5). In parallel, we want to see validation_reward_mean increase under the small kl_dist constraint. kl_dist is controlled by beta (decreases when we increase beta).
+<br>
 
-
-## Citation
+# Citation
 If you find this useful for your research, please cite the following:
 ```bibtex
 @misc{benkish2024mitigating,
