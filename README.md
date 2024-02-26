@@ -6,7 +6,7 @@
 <a href="">Moran Yanuka</a>,
 <a href="https://morrisalp.github.io/">Morris Alper</a>,
 <a href="https://www.giryes.sites.tau.ac.il/">Raja Giryes</a>,
-<a href="https://www.elor.sites.tau.ac.il/">Hadar Averbuch-Elor</a>,
+<a href="https://www.elor.sites.tau.ac.il/">Hadar Averbuch-Elor</a>
 
 <a href="https://assafbk.github.io/mocha"><img src="https://img.shields.io/static/v1?label=Project&message=Website&color=blue"></a>
 <a href="https://arxiv.org/abs/2312.03631"><img src="https://img.shields.io/badge/arXiv-2311.13608-b31b1b.svg"></a>
