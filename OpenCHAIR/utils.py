@@ -12,6 +12,18 @@ from functools import lru_cache
 import spacy
 import en_core_web_sm
 
+from torch.utils.data import Dataset
+from tqdm.auto import tqdm
+
+class ListDataset(Dataset):
+     def __init__(self, original_list):
+        self.original_list = original_list
+     def __len__(self):
+        return len(self.original_list)
+
+     def __getitem__(self, i):
+        return self.original_list[i]
+     
 
 def is_concrete(noun, concretness, t=4.5):
     if noun in concretness:
@@ -45,7 +57,8 @@ def load_llm_pipe(args):
                     model=model,
                     tokenizer=tokenizer,
                     trust_remote_code=True,
-                    device_map="auto")
+                    device_map="auto",
+                    batch_size=args.batch_size)
     return pipe
 
 def parse_ans(ans):
@@ -71,3 +84,18 @@ def get_answer(cap, obj, pipe):
     out = out[0]['generated_text'][len(prompt):].strip()
     out = parse_ans(out)
     return out
+
+@lru_cache(maxsize=None)
+def get_answers(caps_flat, objs_flat, pipe):
+    prompts = [make_prompt(cap, obj, pipe.tokenizer) for cap,obj in zip(caps_flat, objs_flat)]
+    dataset = ListDataset(prompts)
+    
+    outputs = []
+    with tqdm(total=len(prompts)) as pbar:
+        for out in pipe(dataset, max_new_tokens=8, do_sample=False, num_return_sequences=1):
+            outputs.append(out)
+            pbar.update(1)
+    
+    outputs = [outputs[i][0]['generated_text'][len(prompts[i]):].strip() for i in range(len(outputs))]
+    outputs = [parse_ans(out) for out in outputs]
+    return outputs
