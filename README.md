@@ -3,7 +3,7 @@
 <p align="center">
 
 <a href="https://assafbk.github.io/website/">Assaf Ben-Kish</a>,
-<a href="">Moran Yanuka</a>,
+<a href="https://scholar.google.com/citations?user=ZsXf6OMAAAAJ&hl=en">Moran Yanuka</a>,
 <a href="https://morrisalp.github.io/">Morris Alper</a>,
 <a href="https://www.giryes.sites.tau.ac.il/">Raja Giryes</a>,
 <a href="https://www.elor.sites.tau.ac.il/">Hadar Averbuch-Elor</a>
