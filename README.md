@@ -1,4 +1,4 @@
-# Mitigating Open-Vocabulary Caption Hallucinations
+# Mitigating Open-Vocabulary Caption Hallucinations (EMNLP 2024)
 
 <p align="center">
 
